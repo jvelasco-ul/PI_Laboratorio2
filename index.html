@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Solucionario Paso a Paso - Laboratorio de Secado por Atomización">
+    <title>Laboratorio: Secado por Atomización | Procesos Industriales</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #ff6600;
+            --dark-bg: #1a1a2e;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --accent-green: #00cc66;
+            --accent-purple: #9933ff;
+            --accent-blue: #0099ff;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .main-header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar-brand img {
+            filter: drop-shadow(0 0 10px var(--secondary-color));
+        }
+        
+        .navbar-brand span {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--secondary-color), #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 0 0.5rem;
+            color: #fff !important;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+        }
+
+        .lab-title {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--secondary-color), #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .progress-bar-custom {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), #ff9933);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .step-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 102, 0, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 1rem;
+            accent-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        .quiz-option.selected {
+            background: rgba(255, 102, 0, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--secondary-color), #ff9933);
+            border: none;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.4);
+            color: #fff;
+        }
+
+        .btn-action:disabled {
+            background: #555;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .solution-box {
+            background: rgba(0, 204, 102, 0.1);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .solution-box.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback-msg {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            font-weight: 700;
+        }
+
+        .feedback-msg.success {
+            background: rgba(0, 204, 102, 0.2);
+            color: #00ff88;
+            border: 1px solid var(--accent-green);
+        }
+
+        .feedback-msg.error {
+            background: rgba(204, 51, 0, 0.2);
+            color: #ff6666;
+            border: 1px solid #cc3300;
+        }
+
+        .equipment-badge {
+            display: inline-block;
+            background: rgba(153, 51, 255, 0.2);
+            border: 1px solid var(--accent-purple);
+            color: #cc99ff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 3px solid var(--secondary-color);
+            margin-top: 4rem;
+            padding: 3rem 0;
+        }
+
+        .footer-logo {
+            filter: drop-shadow(0 0 10px var(--secondary-color));
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .lab-title { font-size: 1.5rem; }
+            .info-card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Navegación principal">
+            <div class="container">
+                <a class="navbar-brand" href="index.html" aria-label="Inicio - Procesos Industriales">
+                    <img src="assets/images/logo.png" alt="Logo Procesos Industriales" height="60" class="footer-logo">
+                    <span>PROCESOS INDUSTRIALES</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i> Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-flask me-1"></i> Laboratorio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-table me-1"></i> Tablas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container py-4">
+            <h1 class="lab-title">
+                <i class="fas fa-wind me-3"></i>SECADO POR ATOMIZACIÓN DE CAFÉ
+            </h1>
+            <p class="text-center text-muted mb-4">Guía interactiva paso a paso para el análisis y toma de decisiones en ingeniería</p>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-custom">
+                <div class="progress-fill" id="progressBar" style="width: 16%;"></div>
+            </div>
+
+            <!-- STEP 1 -->
+            <div class="step-container active" id="step1">
+                <div class="info-card">
+                    <span class="equipment-badge"><i class="fas fa-info-circle me-1"></i> Paso 1 de 6</span>
+                    <h4><i class="fas fa-vial me-2"></i>Datos de Alimentación y Producto</h4>
+                    <p>Se procesan <strong>100 mL</strong> de extracto de café con un <strong>20% de sólidos secos</strong>. Asumimos una densidad del extracto de <strong>1.02 g/mL</strong>. El objetivo es obtener un polvo con una humedad estándar final del <strong>5% en base húmeda</strong>.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-check text-success me-2"></i>Masa total de alimentación = 100 mL × 1.02 g/mL = <strong>102 g</strong></li>
+                        <li><i class="fas fa-check text-success me-2"></i>Masa de sólidos secos (mss) = 20% de 102 g = <strong>20.4 g</strong></li>
+                        <li><i class="fas fa-check text-success me-2"></i>Masa de agua inicial = 102 g - 20.4 g = <strong>81.6 g</strong></li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Preguntas de Análisis</h5>
+                    
+                    <div class="mb-4">
+                        <p class="mb-2">1. ¿Cuál es la masa de sólidos secos (mss) en la alimentación?</p>
+                        <label class="quiz-option"><input type="radio" name="q1_1" value="a"> 20.0 g</label>
+                        <label class="quiz-option"><input type="radio" name="q1_1" value="b"> 20.4 g</label>
+                        <label class="quiz-option"><input type="radio" name="q1_1" value="c"> 81.6 g</label>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="mb-2">2. Si la humedad final es 5% base húmeda, ¿cuál es la humedad base seca (X2)?</p>
+                        <label class="quiz-option"><input type="radio" name="q1_2" value="a"> 0.0500 kg agua/kg ss</label>
+                        <label class="quiz-option"><input type="radio" name="q1_2" value="b"> 0.0526 kg agua/kg ss</label>
+                        <label class="quiz-option"><input type="radio" name="q1_2" value="c"> 0.1000 kg agua/kg ss</label>
+                    </div>
+
+                    <div id="feedback1" class="feedback-msg"></div>
+                    
+                    <div class="d-flex gap-3 mt-3">
+                        <button class="btn btn-action" onclick="checkStep(1, {'q1_1': 'b', 'q1_2': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuestas
+                        </button>
+                        <button class="btn btn-action d-none" id="next1" onclick="nextStep(2)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution1">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 1</h5>
+                    <p><strong>Humedad inicial base seca (X1):</strong></p>
+                    \[ X_1 = \frac{m_{agua}}{m_{ss}} = \frac{81.6 \text{ g}}{20.4 \text{ g}} = 4.0 \text{ kg agua / kg s.s.} \]
+                    <p><strong>Humedad final base seca (X2):</strong></p>
+                    \[ X_2 = \frac{\% \text{ base húmeda}}{100 - \% \text{ base húmeda}} = \frac{5}{95} = 0.0526 \text{ kg agua / kg s.s.} \]
+                    <p class="mt-2"><em>Decisión de ingeniería: Conocer X1 y X2 es fundamental para dimensionar la capacidad de evaporación requerida del equipo.</em></p>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step-container" id="step2">
+                <div class="info-card">
+                    <span class="equipment-badge"><i class="fas fa-info-circle me-1"></i> Paso 2 de 6</span>
+                    <h4><i class="fas fa-wind me-2"></i>Aire Atmosférico y de Atomización</h4>
+                    <p>Condiciones del aire ambiente: <strong>Ta1 = 25°C</strong>, <strong>HR = 60%</strong>, <strong>P = 101.325 kPa</strong>.<br>
+                    Equipo: Mini Spray Dryer Buchi B-290. Flujo de aire de atomización: <strong>600 L/h</strong> (medidos a 0°C, 1 atm).</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-tint text-info me-2"></i>Presión de vapor saturado (Pvs) a 25°C ≈ 3.169 kPa</li>
+                        <li><i class="fas fa-tint text-info me-2"></i>Presión parcial de vapor (Pv1) = 0.60 × 3.169 = 1.901 kPa</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Pregunta de Análisis</h5>
+                    
+                    <div class="mb-4">
+                        <p class="mb-2">1. En la fórmula de humedad absoluta \( H = \frac{18}{29} \frac{P_v}{P - P_v} \), ¿qué representa físicamente el denominador \( P - P_v \)?</p>
+                        <label class="quiz-option"><input type="radio" name="q2_1" value="a"> La presión total del sistema</label>
+                        <label class="quiz-option"><input type="radio" name="q2_1" value="b"> La presión parcial del aire seco</label>
+                        <label class="quiz-option"><input type="radio" name="q2_1" value="c"> La presión de vapor saturado</label>
+                    </div>
+
+                    <div id="feedback2" class="feedback-msg"></div>
+                    
+                    <div class="d-flex gap-3 mt-3">
+                        <button class="btn btn-action" onclick="checkStep(2, {'q2_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next2" onclick="nextStep(3)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution2">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 2</h5>
+                    <p><strong>Humedad absoluta del aire atmosférico (H1):</strong></p>
+                    \[ H_1 = 0.6207 \times \left( \frac{1.901}{101.325 - 1.901} \right) = 0.0118 \text{ kg agua / kg aire seco} \]
+                    <p><strong>Entalpía del aire atmosférico (hG1):</strong></p>
+                    \[ h_{G1} = (1.005 + 1.880 \times H_1)T_{a1} + 2501 \times H_1 \]
+                    \[ h_{G1} = (1.005 + 1.880 \times 0.0118) \times 25 + 2501 \times 0.0118 = 55.2 \text{ kJ / kg aire seco} \]
+                    <p class="mt-2"><em>Nota: El aire de atomización (Go) se calcula con la densidad a 0°C (1.292 kg/m³): Go = 0.6 m³/h × 1.292 kg/m³ = 0.775 kg/h.</em></p>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="step-container" id="step3">
+                <div class="info-card">
+                    <span class="equipment-badge"><i class="fas fa-info-circle me-1"></i> Paso 3 de 6</span>
+                    <h4><i class="fas fa-fire me-2"></i>Aire de Secado (Entrada y Salida)</h4>
+                    <p>El aire se calienta hasta <strong>TG1 = 160°C</strong> antes de entrar a la cámara. Debido al proceso de evaporación, sale a una temperatura menor. Asumimos condiciones de salida típicas para café: <strong>TG2 = 80°C</strong> y <strong>HR2 = 30%</strong>.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-thermometer-half text-warning me-2"></i>Pvs a 80°C ≈ 47.39 kPa</li>
+                        <li><i class="fas fa-thermometer-half text-warning me-2"></i>Pv2 = 0.30 × 47.39 = 14.217 kPa</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Pregunta de Análisis</h5>
+                    
+                    <div class="mb-4">
+                        <p class="mb-2">1. ¿Por qué la temperatura del aire cae drásticamente de 160°C a 80°C dentro de la cámara de secado?</p>
+                        <label class="quiz-option"><input type="radio" name="q3_1" value="a"> Porque el compresor enfría el aire intencionalmente.</label>
+                        <label class="quiz-option"><input type="radio" name="q3_1" value="b"> Porque el agua del extracto absorbe calor latente de vaporización, enfriando el aire.</label>
+                        <label class="quiz-option"><input type="radio" name="q3_1" value="c"> Porque hay una fuga de aire atmosférico en la cámara.</label>
+                    </div>
+
+                    <div id="feedback3" class="feedback-msg"></div>
+                    
+                    <div class="d-flex gap-3 mt-3">
+                        <button class="btn btn-action" onclick="checkStep(3, {'q3_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next3" onclick="nextStep(4)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution3">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 3</h5>
+                    <p><strong>Humedad absoluta del aire de salida (H2):</strong></p>
+                    \[ H_2 = 0.6207 \times \left( \frac{14.217}{101.325 - 14.217} \right) = 0.1013 \text{ kg agua / kg aire seco} \]
+                    <p><strong>Entalpía del aire de salida (hG2):</strong></p>
+                    \[ h_{G2} = (1.005 + 1.880 \times 0.1013) \times 80 + 2501 \times 0.1013 = 349.2 \text{ kJ / kg aire seco} \]
+                    <p class="mt-2"><em>Análisis: El aumento de H1 (0.0118) a H2 (0.1013) confirma que el aire ha absorbido la humedad evaporada del café.</em></p>
+                </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="step-container" id="step4">
+                <div class="info-card">
+                    <span class="equipment-badge"><i class="fas fa-info-circle me-1"></i> Paso 4 de 6</span>
+                    <h4><i class="fas fa-balance-scale me-2"></i>Balance de Materia Global</h4>
+                    <p>En estado estacionario, la acumulación es cero. El agua evaporada (W) se calcula a partir de los sólidos secos y el cambio de humedad.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-arrow-right text-primary me-2"></i>Ls (flujo de s.s.) = 20.4 g/h (asumiendo 1h de proceso para el ejemplo)</li>
+                        <li><i class="fas fa-arrow-right text-primary me-2"></i>X1 = 4.0 kg/kg ss | X2 = 0.0526 kg/kg ss</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Pregunta de Análisis</h5>
+                    
+                    <div class="mb-4">
+                        <p class="mb-2">1. Para el balance de materia en un secador operando en estado estacionario, ¿cuál es el valor de la tasa de acumulación de masa?</p>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="a"> Mayor a cero</label>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="b"> Igual a cero</label>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="c"> Menor a cero</label>
+                    </div>
+
+                    <div id="feedback4" class="feedback-msg"></div>
+                    
+                    <div class="d-flex gap-3 mt-3">
+                        <button class="btn btn-action" onclick="checkStep(4, {'q4_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next4" onclick="nextStep(5)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution4">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 4</h5>
+                    <p><strong>Agua evaporada (W):</strong></p>
+                    \[ W = L_s \times (X_1 - X_2) \]
+                    \[ W = 0.0204 \text{ kg/h} \times (4.0 - 0.0526) = 0.0805 \text{ kg H}_2\text{O / h} \]
+                    <p class="mt-2"><em>Decisión de ingeniería: La capacidad máxima de evaporación del Buchi B-290 es 1.0 kg/h. Nuestro requerimiento de 0.0805 kg/h está muy por debajo del límite, lo que indica que el equipo opera holgadamente y con alta eficiencia para esta carga.</em></p>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="step-container" id="step5">
+                <div class="info-card">
+                    <span class="equipment-badge"><i class="fas fa-info-circle me-1"></i> Paso 5 de 6</span>
+                    <h4><i class="fas fa-bolt me-2"></i>Balance de Energía</h4>
+                    <p>El balance energético considera las entalpías de entrada y salida, más el trabajo eléctrico del calefactor (2300W según ficha técnica) y las pérdidas de calor.</p>
+                    <p class="mt-2"><strong>Ecuación simplificada:</strong><br>
+                    \( G_0 h_{G0} + G_1 h_{G1} + L_s h_{s1} + W_{elec} = (G_1 + G_0) h_{G2} + L_s h_{s2} + Q_{perdido} \)</p>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Pregunta de Análisis</h5>
+                    
+                    <div class="mb-4">
+                        <p class="mb-2">1. En el balance de energía, ¿cuál es la principal corriente que transporta energía fuera del secador?</p>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="a"> El producto en polvo seco.</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="b"> La entalpía del aire húmedo de salida (incluye el calor latente del vapor evaporado).</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="c"> El trabajo mecánico del extractor.</label>
+                    </div>
+
+                    <div id="feedback5" class="feedback-msg"></div>
+                    
+                    <div class="d-flex gap-3 mt-3">
+                        <button class="btn btn-action" onclick="checkStep(5, {'q5_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next5" onclick="nextStep(6)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution5">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 5</h5>
+                    <p>El cálculo detallado de \( Q_{perdido} \) requiere despejar de la ecuación global. Sin embargo, el análisis cualitativo revela que:</p>
+                    <ul>
+                        <li>La mayor salida de energía no es el producto seco, sino el <strong>aire de exhaustación</strong>, que se lleva el calor sensible (a 80°C) y, crucialmente, el <strong>calor latente</strong> del agua que evaporó (2501 kJ/kg).</li>
+                        <li>Optimizar el proceso implica minimizar esta pérdida, por ejemplo, recuperando calor del aire de salida o ajustando la relación aire/alimento.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="step-container" id="step6">
+                <div class="info-card">
+                    <span class="equipment-badge"><i class="fas fa-info-circle me-1"></i> Paso 6 de 6</span>
+                    <h4><i class="fas fa-clipboard-check me-2"></i>Conclusiones y Toma de Decisiones</h4>
+                    <p>Has completado los cálculos de materia y energía. Como ingeniero, debes interpretar estos resultados para optimizar el proceso o resolver desviaciones.</p>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Pregunta Final de Decisión</h5>
+                    
+                    <div class="mb-4">
+                        <p class="mb-2">1. Si durante la operación observas que la humedad final del producto es mayor a la estándar (ej. 8% en lugar de 5%), ¿qué ajuste de decisión sería más efectivo para corregirlo?</p>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="a"> Aumentar el flujo de alimentación de la bomba peristáltica.</label>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="b"> Aumentar la temperatura de entrada del aire de secado (TG1) o disminuir el flujo de alimentación.</label>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="c"> Disminuir la velocidad del extractor de aire.</label>
+                    </div>
+
+                    <div id="feedback6" class="feedback-msg"></div>
+                    
+                    <div class="d-flex gap-3 mt-3">
+                        <button class="btn btn-action" onclick="checkStep(6, {'q6_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="finishBtn" onclick="finishLab()" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Finalizar Laboratorio <i class="fas fa-flag-checkered ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution6">
+                    <h5><i class="fas fa-trophy me-2 text-warning"></i>¡Laboratorio Completado!</h5>
+                    <p><strong>Conclusión de Ingeniería:</strong></p>
+                    <p>El secado por atomización es altamente sensible a la relación entre la energía térmica suministrada y la carga de humedad. Aumentar la temperatura de entrada (TG1) incrementa la fuerza impulsora para la transferencia de calor y masa, reduciendo la humedad final. Alternativamente, disminuir el flujo de alimentación da más tiempo de residencia y mayor relación aire/producto para la evaporación.</p>
+                    <p class="mt-3"><em>Has demostrado capacidad de análisis y toma de decisiones basada en balances de materia y energía.</em></p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center text-md-start mb-4 mb-md-0">
+                    <img src="assets/images/logo.png" alt="Logo Procesos Industriales" height="60" class="footer-logo mb-3">
+                    <p class="text-muted">
+                        Herramientas integrales para el estudio y aplicación de procesos industriales.
+                    </p>
+                </div>
+                
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <h5 class="text-warning mb-3">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted text-decoration-none">Dashboard</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Balances de Materia</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Balances de Energía</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 text-center text-md-end">
+                    <h5 class="text-warning mb-3">Contacto</h5>
+                    <p class="text-muted">
+                        <i class="fas fa-envelope me-2"></i>info@procesosindustriales.com<br>
+                        <i class="fas fa-university me-2"></i>Facultad de Ingeniería
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="my-4" style="border-color: var(--secondary-color);">
+            
+            <div class="text-center text-muted">
+                <small>&copy; 2024 Procesos Industriales. Todos los derechos reservados.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Highlight selected quiz option
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const name = this.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.querySelector('input').checked = true;
+            });
+        });
+
+        function checkStep(step, correctAnswers) {
+            let allCorrect = true;
+            let feedbackEl = document.getElementById(`feedback${step}`);
+            
+            for (const [key, value] of Object.entries(correctAnswers)) {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (!selected || selected.value !== value) {
+                    allCorrect = false;
+                    break;
+                }
+            }
+
+            if (allCorrect) {
+                feedbackEl.className = 'feedback-msg success';
+                feedbackEl.innerHTML = '<i class="fas fa-check-circle me-2"></i>¡Correcto! Has demostrado comprensión del concepto.';
+                feedbackEl.style.display = 'block';
+                
+                // Show solution and next button
+                document.getElementById(`solution${step}`).classList.add('show');
+                document.getElementById(`next${step}`).classList.remove('d-none');
+                
+                // Re-render MathJax for the newly visible solution
+                if (window.MathJax) {
+                    MathJax.typesetPromise([document.getElementById(`solution${step}`)]);
+                }
+            } else {
+                feedbackEl.className = 'feedback-msg error';
+                feedbackEl.innerHTML = '<i class="fas fa-times-circle me-2"></i>Respuesta incorrecta. Revisa los conceptos y vuelve a intentarlo.';
+                feedbackEl.style.display = 'block';
+            }
+        }
+
+        function nextStep(nextStepNum) {
+            // Hide current step
+            document.querySelectorAll('.step-container').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show next step
+            document.getElementById(`step${nextStepNum}`).classList.add('active');
+            
+            // Update progress bar
+            const progress = (nextStepNum / 6) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function finishLab() {
+            alert('¡Felicidades! Has completado el laboratorio de Secado por Atomización con éxito. Tus respuestas han sido registradas.');
+            // Here you could redirect to a dashboard or save results
+        }
+    </script>
+</body>
+</html>
