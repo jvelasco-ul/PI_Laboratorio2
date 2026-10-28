@@ -296,15 +296,15 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. ¿Cuál es la humedad inicial base seca (X1) de la alimentación?</p>
-                        <label class="quiz-option"><input type="radio" name="q1_1" value="a"> 0.20 kg agua / kg s.s.</label>
-                        <label class="quiz-option"><input type="radio" name="q1_1" value="b"> 4.00 kg agua / kg s.s.</label>
-                        <label class="quiz-option"><input type="radio" name="q1_1" value="c"> 0.80 kg agua / kg s.s.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q1_1" value="opt1"> 0.20 kg agua / kg s.s.</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q1_1" value="opt2"> 4.00 kg agua / kg s.s.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q1_1" value="opt3"> 0.80 kg agua / kg s.s.</label>
                     </div>
 
                     <div id="feedback1" class="feedback-msg"></div>
                     
                     <div class="d-flex gap-3 mt-3 flex-wrap">
-                        <button class="btn btn-action" id="checkBtn1" onclick="checkStep(1, {'q1_1': 'b'})">
+                        <button class="btn btn-action" id="checkBtn1" onclick="checkStep(1)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next1" onclick="nextStep(2)" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -315,8 +315,27 @@
 
                 <div class="solution-box" id="solution1">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 1</h5>
-                    <p><strong>Cálculo de X1:</strong></p>
-                    \[ X_1 = \frac{m_{agua}}{m_{ss}} = \frac{81.6 \text{ g}}{20.4 \text{ g}} = 4.0 \text{ kg agua / kg s.s.} \]
+
+                    <p><strong>Paso previo 1: Masa total de alimentación</strong></p>
+                    <p>Se multiplica el volumen medido por la densidad asumida del extracto:</p>
+                    \\[ m_{\text{alimentación}} = V \times \rho = 100 \ \text{mL} \times 1.02 \ \frac{\text{g}}{\text{mL}} = 102 \ \text{g} \\]
+
+                    <p><strong>Paso previo 2: Masa de sólidos secos (mss)</strong></p>
+                    <p>Con un 20% en masa de sólidos secos (fracción másica \\( x_s = 0.20 \\)):</p>
+                    \\[ m_{ss} = x_s \cdot m_{\text{alimentación}} = 0.20 \times 102 \ \text{g} = 20.4 \ \text{g} \\]
+
+                    <p><strong>Paso previo 3: Masa de agua inicial</strong></p>
+                    <p>Balance de materia sobre la muestra (todo lo que no es sólido seco es agua):</p>
+                    \\[ m_{\text{agua}} = m_{\text{alimentación}} - m_{ss} = 102 - 20.4 = 81.6 \ \text{g} \\]
+
+                    <p><strong>Cálculo de la humedad inicial en base seca (X1):</strong></p>
+                    <p>Fórmula general de humedad en base seca (razón kg agua / kg sólido seco):</p>
+                    \\[ X_1 = \frac{m_{\text{agua}}}{m_{ss}} = \frac{81.6 \ \text{g}}{20.4 \ \text{g}} = 4.0 \ \frac{\text{kg agua}}{\text{kg s.s.}} \\]
+
+                    <p><strong>Verificación alternativa (desde la fracción másica húmeda):</strong></p>
+                    <p>Con \\( x_w = 0.80 \\) (fracción de agua) y \\( x_s = 0.20 \\):</p>
+                    \\[ X_1 = \frac{x_w}{x_s} = \frac{0.80}{0.20} = 4.0 \ \frac{\text{kg agua}}{\text{kg s.s.}} \\]
+
                     <div class="engineering-note">
                         <i class="fas fa-lightbulb me-2"></i><strong>Nota de Ingeniería:</strong> Una X1 de 4.0 indica que por cada kilogramo de sólido de café, hay 4 kg de agua que deben ser evaporados. Esto define la carga térmica mínima del proceso.
                     </div>
@@ -340,9 +359,9 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. En la fórmula \( H_1 = 0.6207 \frac{P_{v1}}{P - P_{v1}} \), ¿qué representa el término \( P - P_{v1} \)?</p>
-                        <label class="quiz-option"><input type="radio" name="q2_1" value="a"> La presión total del sistema</label>
-                        <label class="quiz-option"><input type="radio" name="q2_1" value="b"> La presión parcial del aire seco</label>
-                        <label class="quiz-option"><input type="radio" name="q2_1" value="c"> La presión de vapor saturado</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q2_1" value="opt1"> La presión total del sistema</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q2_1" value="opt2"> La presión parcial del aire seco</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q2_1" value="opt3"> La presión de vapor saturado</label>
                     </div>
 
                     <div id="feedback2" class="feedback-msg"></div>
@@ -351,7 +370,7 @@
                         <button class="btn btn-back" onclick="prevStep(1)">
                             <i class="fas fa-arrow-left me-2"></i>Regresar
                         </button>
-                        <button class="btn btn-action" id="checkBtn2" onclick="checkStep(2, {'q2_1': 'b'})">
+                        <button class="btn btn-action" id="checkBtn2" onclick="checkStep(2)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next2" onclick="nextStep(3)" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -362,10 +381,24 @@
 
                 <div class="solution-box" id="solution2">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 2</h5>
+
+                    <p><strong>Paso previo 1: Presión parcial de vapor (Pv1)</strong></p>
+                    <p>La humedad relativa relaciona la presión parcial real con la de saturación:</p>
+                    \\[ HR = \frac{P_{v1}}{P_{vs}} \quad \Rightarrow \quad P_{v1} = HR \times P_{vs} = 0.60 \times 3.169 \ \text{kPa} = 1.901 \ \text{kPa} \\]
+
+                    <p><strong>Paso previo 2: Presión parcial del aire seco</strong></p>
+                    <p>Por la ley de Dalton, el término \\( P - P_{v1} \\) es la presión parcial del aire seco:</p>
+                    \\[ P_a = P - P_{v1} = 101.325 - 1.901 = 99.424 \ \text{kPa} \\]
+
                     <p><strong>Humedad absoluta (H1):</strong></p>
-                    \[ H_1 = 0.6207 \times \left( \frac{1.901}{101.325 - 1.901} \right) = 0.0118 \text{ kg agua / kg aire seco} \]
-                    <p><strong>Entalpía (hG1):</strong></p>
-                    \[ h_{G1} = (1.005 + 1.880 \times 0.0118) \times 25 + 2501 \times 0.0118 = 55.2 \text{ kJ / kg a.s.} \]
+                    <p>Fórmula psicrométrica (razón de masas vapor/aire seco, con \\( 0.6207 = M_{H_2O}/M_{aire} \\)):</p>
+                    \\[ H_1 = 0.6207 \cdot \frac{P_{v1}}{P - P_{v1}} = 0.6207 \times \left( \frac{1.901}{101.325 - 1.901} \right) = 0.6207 \times 0.01912 = 0.0118 \ \frac{\text{kg agua}}{\text{kg a.s.}} \\]
+
+                    <p><strong>Entalpía del aire húmedo (hG1):</strong></p>
+                    <p>Fórmula de entalpía psicométrica referida a 0°C, con calor específico del aire seco \\( c_{pa} = 1.005 \\), del vapor \\( c_{pv} = 1.880 \\) kJ/kg·°C y calor latente \\( \lambda_0 = 2501 \\) kJ/kg:</p>
+                    \\[ h_G = (c_{pa} + c_{pv} H)\, T + \lambda_0\, H \\]
+                    \\[ h_{G1} = (1.005 + 1.880 \times 0.0118) \times 25 + 2501 \times 0.0118 \\]
+                    \\[ h_{G1} = (1.005 + 0.0222) \times 25 + 29.5 = 25.68 + 29.5 = 55.2 \ \frac{\text{kJ}}{\text{kg a.s.}} \\]
                 </div>
             </div>
 
@@ -389,9 +422,9 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. ¿Por qué es crucial que el flujo de aire de atomización sea estable, aunque su masa sea pequeña?</p>
-                        <label class="quiz-option"><input type="radio" name="q3_1" value="a"> Porque es la principal fuente de calor para la evaporación.</label>
-                        <label class="quiz-option"><input type="radio" name="q3_1" value="b"> Porque determina el tamaño de gota; un flujo inestable genera partículas húmedas o pegadas en las paredes.</label>
-                        <label class="quiz-option"><input type="radio" name="q3_1" value="c"> Porque enfría el calefactor eléctrico para evitar sobrecalentamiento.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q3_1" value="opt1"> Porque es la principal fuente de calor para la evaporación.</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q3_1" value="opt2"> Porque determina el tamaño de gota; un flujo inestable genera partículas húmedas o pegadas en las paredes.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q3_1" value="opt3"> Porque enfría el calefactor eléctrico para evitar sobrecalentamiento.</label>
                     </div>
 
                     <div id="feedback3" class="feedback-msg"></div>
@@ -400,7 +433,7 @@
                         <button class="btn btn-back" onclick="prevStep(2)">
                             <i class="fas fa-arrow-left me-2"></i>Regresar
                         </button>
-                        <button class="btn btn-action" id="checkBtn3" onclick="checkStep(3, {'q3_1': 'b'})">
+                        <button class="btn btn-action" id="checkBtn3" onclick="checkStep(3)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next3" onclick="nextStep(4)" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -411,8 +444,20 @@
 
                 <div class="solution-box" id="solution3">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 3</h5>
-                    <p>La entalpía del aire de atomización (asumiendo Ta0 = 25°C y H ≈ 0, ya que es aire comprimido seco) es:</p>
-                    \[ h_{G0} = 1.005 \times 25 = 25.1 \text{ kJ / kg a.s.} \]
+
+                    <p><strong>Paso previo 1: Conversión de unidades de caudal volumétrico</strong></p>
+                    \\[ \dot{V} = 600 \ \frac{\text{L}}{\text{h}} \times \frac{1 \ \text{m}^3}{1000 \ \text{L}} = 0.6 \ \frac{\text{m}^3}{\text{h}} \\]
+
+                    <p><strong>Paso previo 2: Flujo másico de aire de atomización (Go)</strong></p>
+                    <p>Se usa la relación entre flujo másico, densidad y caudal volumétrico:</p>
+                    \\[ G_0 = \rho_{aire} \times \dot{V} = 1.292 \ \frac{\text{kg}}{\text{m}^3} \times 0.6 \ \frac{\text{m}^3}{\text{h}} = 0.775 \ \frac{\text{kg}}{\text{h}} \\]
+
+                    <p><strong>Entalpía del aire de atomización (hG0):</strong></p>
+                    <p>Para aire comprimido seco se asume \\( H \approx 0 \\), por lo que la entalpía psicrométrica general</p>
+                    \\[ h_G = (c_{pa} + c_{pv} H)\, T + \lambda_0\, H \\]
+                    <p>se reduce únicamente al término de calor sensible:</p>
+                    \\[ h_{G0} = c_{pa} \times T = 1.005 \times 25 = 25.1 \ \frac{\text{kJ}}{\text{kg a.s.}} \\]
+
                     <div class="engineering-note">
                         <i class="fas fa-cogs me-2"></i><strong>Equipo Büchi B-290:</strong> La boquilla tiene un diámetro de 0.7 mm. La presión requerida es de 5-8 bar para lograr la atomización correcta con este flujo.
                     </div>
@@ -433,9 +478,9 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. Al calentar el aire de 25°C a 160°C sin añadir humedad, ¿qué le sucede a su Humedad Relativa (HR)?</p>
-                        <label class="quiz-option"><input type="radio" name="q4_1" value="a"> Aumenta drásticamente.</label>
-                        <label class="quiz-option"><input type="radio" name="q4_1" value="b"> Se mantiene igual.</label>
-                        <label class="quiz-option"><input type="radio" name="q4_1" value="c"> Disminuye drásticamente, aumentando su capacidad de absorber agua.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q4_1" value="opt1"> Aumenta drásticamente.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q4_1" value="opt2"> Se mantiene igual.</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q4_1" value="opt3"> Disminuye drásticamente, aumentando su capacidad de absorber agua.</label>
                     </div>
 
                     <div id="feedback4" class="feedback-msg"></div>
@@ -444,7 +489,7 @@
                         <button class="btn btn-back" onclick="prevStep(3)">
                             <i class="fas fa-arrow-left me-2"></i>Regresar
                         </button>
-                        <button class="btn btn-action" id="checkBtn4" onclick="checkStep(4, {'q4_1': 'c'})">
+                        <button class="btn btn-action" id="checkBtn4" onclick="checkStep(4)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next4" onclick="nextStep(5)" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -455,8 +500,22 @@
 
                 <div class="solution-box" id="solution4">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 4</h5>
+
+                    <p><strong>Concepto clave: calentamiento sensible sin cambio de humedad</strong></p>
+                    <p>En el calefactor solo se añade calor sensible (no se agrega ni se quita agua), por lo que:</p>
+                    \\[ H_1 = H_{1,\text{calentado}} = 0.0118 \ \frac{\text{kg agua}}{\text{kg a.s.}} \\]
+                    <p>La humedad relativa, en cambio, cae porque aumenta la presión de saturación con la temperatura:</p>
+                    \\[ HR = \frac{P_v}{P_{vs}(T)} \quad \xrightarrow{T \uparrow} \quad P_{vs}(T) \uparrow \quad \Rightarrow \quad HR \downarrow \\]
+
                     <p><strong>Entalpía del aire de secado a la entrada (hG1_calentado):</strong></p>
-                    \[ h_{G1} = (1.005 + 1.880 \times 0.0118) \times 160 + 2501 \times 0.0118 = 197.5 \text{ kJ / kg a.s.} \]
+                    <p>Se aplica la misma fórmula psicrométrica de entalpía, ahora con TG1 = 160°C:</p>
+                    \\[ h_G = (c_{pa} + c_{pv} H)\, T + \lambda_0\, H \\]
+                    \\[ h_{G1} = (1.005 + 1.880 \times 0.0118) \times 160 + 2501 \times 0.0118 \\]
+                    \\[ h_{G1} = (1.005 + 0.0222) \times 160 + 29.5 = 164.35 + 29.5 = 197.5 \ \frac{\text{kJ}}{\text{kg a.s.}} \\]
+
+                    <p><strong>Calor aportado por el calefactor (verificación):</strong></p>
+                    \\[ q_{\text{calefactor}} = h_{G1,\text{caliente}} - h_{G1,\text{ambiente}} = 197.5 - 55.2 = 142.3 \ \frac{\text{kJ}}{\text{kg a.s.}} \\]
+
                     <div class="engineering-note">
                         <i class="fas fa-shield-alt me-2"></i><strong>Límite del Equipo:</strong> El Büchi B-290 soporta una temperatura máxima de entrada de 220°C. Operar a 160°C es seguro y adecuado para extractos de café, evitando la degradación térmica de los compuestos volátiles del aroma.
                     </div>
@@ -476,9 +535,9 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. Convierte la humedad final del producto del 5% (base húmeda) a base seca (X2).</p>
-                        <label class="quiz-option"><input type="radio" name="q5_1" value="a"> 0.0500 kg agua / kg s.s.</label>
-                        <label class="quiz-option"><input type="radio" name="q5_1" value="b"> 0.0526 kg agua / kg s.s.</label>
-                        <label class="quiz-option"><input type="radio" name="q5_1" value="c"> 0.1000 kg agua / kg s.s.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q5_1" value="opt1"> 0.0500 kg agua / kg s.s.</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q5_1" value="opt2"> 0.0526 kg agua / kg s.s.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q5_1" value="opt3"> 0.1000 kg agua / kg s.s.</label>
                     </div>
 
                     <div id="feedback5" class="feedback-msg"></div>
@@ -487,7 +546,7 @@
                         <button class="btn btn-back" onclick="prevStep(4)">
                             <i class="fas fa-arrow-left me-2"></i>Regresar
                         </button>
-                        <button class="btn btn-action" id="checkBtn5" onclick="checkStep(5, {'q5_1': 'b'})">
+                        <button class="btn btn-action" id="checkBtn5" onclick="checkStep(5)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next5" onclick="nextStep(6)" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -498,10 +557,24 @@
 
                 <div class="solution-box" id="solution5">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 5</h5>
-                    <p><strong>Humedad base seca (X2):</strong></p>
-                    \[ X_2 = \frac{5}{100 - 5} = \frac{5}{95} = 0.0526 \text{ kg agua / kg s.s.} \]
-                    <p><strong>Humedad absoluta del aire de salida (H2):</strong> (Pvs a 80°C ≈ 47.39 kPa)</p>
-                    \[ H_2 = 0.6207 \times \left( \frac{0.30 \times 47.39}{101.325 - (0.30 \times 47.39)} \right) = 0.1013 \text{ kg agua / kg a.s.} \]
+
+                    <p><strong>Humedad base seca del producto (X2):</strong></p>
+                    <p>Relación general entre humedad en base húmeda (\\( x_w \\), % agua sobre masa total) y base seca (X):</p>
+                    \\[ X = \frac{x_w}{1 - x_w} = \frac{\%\,\text{agua}}{100\% - \%\,\text{agua}} \\]
+                    <p>Sustituyendo el 5% en base húmeda:</p>
+                    \\[ X_2 = \frac{5}{100 - 5} = \frac{5}{95} = 0.0526 \ \frac{\text{kg agua}}{\text{kg s.s.}} \\]
+
+                    <p><strong>Paso previo para H2: Presión parcial de vapor a la salida (Pv2)</strong></p>
+                    <p>Con HR2 = 30% y \\( P_{vs} \\) a 80°C ≈ 47.39 kPa:</p>
+                    \\[ P_{v2} = HR_2 \times P_{vs}(80^\circ\text{C}) = 0.30 \times 47.39 = 14.22 \ \text{kPa} \\]
+
+                    <p><strong>Humedad absoluta del aire de salida (H2):</strong></p>
+                    <p>Se aplica la misma fórmula psicrométrica usada para H1:</p>
+                    \\[ H_2 = 0.6207 \cdot \frac{P_{v2}}{P - P_{v2}} = 0.6207 \times \left( \frac{0.30 \times 47.39}{101.325 - (0.30 \times 47.39)} \right) \\]
+                    \\[ H_2 = 0.6207 \times \frac{14.22}{87.11} = 0.6207 \times 0.1632 = 0.1013 \ \frac{\text{kg agua}}{\text{kg a.s.}} \\]
+
+                    <p><strong>Entalpía del aire de salida (hG2):</strong></p>
+                    \\[ h_{G2} = (1.005 + 1.880 \times 0.1013) \times 80 + 2501 \times 0.1013 = 340.2 \ \frac{\text{kJ}}{\text{kg a.s.}} \\]
                 </div>
             </div>
 
@@ -522,9 +595,9 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. Calcula W = Ls(X1 - X2). ¿Cómo se compara este valor con la capacidad máxima del equipo (1.0 kg H2O/h)?</p>
-                        <label class="quiz-option"><input type="radio" name="q6_1" value="a"> W ≈ 0.08 kg/h. Está muy por debajo del límite, el equipo opera holgadamente.</label>
-                        <label class="quiz-option"><input type="radio" name="q6_1" value="b"> W ≈ 4.0 kg/h. Supera la capacidad, el equipo se saturará.</label>
-                        <label class="quiz-option"><input type="radio" name="q6_1" value="c"> W ≈ 0.02 kg/h. Es igual a la capacidad del extractor.</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q6_1" value="opt1"> W ≈ 0.08 kg/h. Está muy por debajo del límite, el equipo opera holgadamente.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q6_1" value="opt2"> W ≈ 4.0 kg/h. Supera la capacidad, el equipo se saturará.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q6_1" value="opt3"> W ≈ 0.02 kg/h. Es igual a la capacidad del extractor.</label>
                     </div>
 
                     <div id="feedback6" class="feedback-msg"></div>
@@ -533,7 +606,7 @@
                         <button class="btn btn-back" onclick="prevStep(5)">
                             <i class="fas fa-arrow-left me-2"></i>Regresar
                         </button>
-                        <button class="btn btn-action" id="checkBtn6" onclick="checkStep(6, {'q6_1': 'a'})">
+                        <button class="btn btn-action" id="checkBtn6" onclick="checkStep(6)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next6" onclick="nextStep(7)" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -544,7 +617,18 @@
 
                 <div class="solution-box" id="solution6">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 6</h5>
-                    \[ W = 0.0204 \times (4.0 - 0.0526) = 0.0204 \times 3.9474 = 0.0805 \text{ kg H}_2\text{O / h} \]
+
+                    <p><strong>Paso previo: Flujo másico de sólidos secos (Ls)</strong></p>
+                    <p>Con 20.4 g de sólidos secos procesados en una hora de operación:</p>
+                    \\[ L_s = 20.4 \ \frac{\text{g}}{\text{h}} \times \frac{1 \ \text{kg}}{1000 \ \text{g}} = 0.0204 \ \frac{\text{kg s.s.}}{\text{h}} \\]
+
+                    <p><strong>Balance de materia en sólidos secos</strong></p>
+                    <p>Los sólidos no se evaporan, por lo que entran y salen igual (\\( L_{s1} = L_{s2} = L_s \\)). El agua evaporada (W) es la diferencia entre el agua que entra y la que sale con el producto:</p>
+                    \\[ W = L_s \cdot X_1 - L_s \cdot X_2 = L_s (X_1 - X_2) \\]
+
+                    <p><strong>Sustitución numérica:</strong></p>
+                    \\[ W = 0.0204 \times (4.0 - 0.0526) = 0.0204 \times 3.9474 = 0.0805 \ \frac{\text{kg H}_2\text{O}}{\text{h}} \\]
+
                     <div class="engineering-note">
                         <i class="fas fa-check-double me-2"></i><strong>Decisión de Ingeniería:</strong> Al ser 0.0805 kg/h mucho menor que 1.0 kg/h, confirmamos que el equipo piloto es perfectamente adecuado para esta carga. Si quisiéramos escalar a producción industrial, necesitaríamos un equipo con una capacidad de evaporación al menos 10-20 veces mayor.
                     </div>
@@ -566,9 +650,9 @@
                     
                     <div class="mb-4">
                         <p class="mb-2">1. En un secador por atomización, ¿cuál es la principal corriente que se lleva la mayor cantidad de energía fuera del sistema?</p>
-                        <label class="quiz-option"><input type="radio" name="q7_1" value="a"> El producto en polvo seco (por su alta temperatura).</label>
-                        <label class="quiz-option"><input type="radio" name="q7_1" value="b"> El aire de exhaustación, debido a su temperatura sensible y, sobre todo, al calor latente del vapor de agua que arrastra.</label>
-                        <label class="quiz-option"><input type="radio" name="q7_1" value="c"> Las pérdidas por radiación en las paredes de la cámara.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q7_1" value="opt1"> El producto en polvo seco (por su alta temperatura).</label>
+                        <label class="quiz-option" data-correct="true"><input type="radio" name="q7_1" value="opt2"> El aire de exhaustación, debido a su temperatura sensible y, sobre todo, al calor latente del vapor de agua que arrastra.</label>
+                        <label class="quiz-option" data-correct="false"><input type="radio" name="q7_1" value="opt3"> Las pérdidas por radiación en las paredes de la cámara.</label>
                     </div>
 
                     <div id="feedback7" class="feedback-msg"></div>
@@ -577,7 +661,7 @@
                         <button class="btn btn-back" onclick="prevStep(6)">
                             <i class="fas fa-arrow-left me-2"></i>Regresar
                         </button>
-                        <button class="btn btn-action" id="checkBtn7" onclick="checkStep(7, {'q7_1': 'b'})">
+                        <button class="btn btn-action" id="checkBtn7" onclick="checkStep(7)">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="finishBtn" onclick="finishLab()" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -588,6 +672,22 @@
 
                 <div class="solution-box" id="solution7">
                     <h5><i class="fas fa-trophy me-2 text-warning"></i>¡Laboratorio Completado!</h5>
+
+                    <p><strong>Paso previo 1: Conversión de la potencia eléctrica del calefactor</strong></p>
+                    \\[ W_{elec} = P \times t = 2300 \ \text{J/s} \times 3600 \ \frac{\text{s}}{\text{h}} \times \frac{1 \ \text{kJ}}{1000 \ \text{J}} = 8280 \ \frac{\text{kJ}}{\text{h}} \\]
+
+                    <p><strong>Ecuación global de balance de energía:</strong></p>
+                    \\[ G_1 h_{G1} + G_0 h_{G0} + L_s h_{s1} + W_{elec} = (G_1 + G_0) h_{G2} + L_s h_{s2} + Q_{perdido} \\]
+
+                    <p><strong>Agrupando términos para aislar las corrientes de salida:</strong></p>
+                    \\[ \underbrace{(G_1 + G_0) h_{G2}}_{\text{energía que sale con el aire}} = \underbrace{G_1 h_{G1} + G_0 h_{G0} + L_s(h_{s1} - h_{s2}) + W_{elec} - Q_{perdido}}_{\text{energía que entra y se transfiere}} \\]
+
+                    <p><strong>Análisis de la corriente dominante a la salida:</strong></p>
+                    <p>La entalpía del aire de salida incluye un término de calor latente proporcional a H2:</p>
+                    \\[ h_{G2} = (c_{pa} + c_{pv} H_2)\, T_{G2} + \lambda_0\, H_2 \\]
+                    \\[ h_{G2} = \underbrace{(1.005 + 1.880 \times 0.1013) \times 80}_{\approx 96.4 \ \text{kJ/kg (sensible)}} + \underbrace{2501 \times 0.1013}_{\approx 253.4 \ \text{kJ/kg (latente)}} \approx 340.2 \ \frac{\text{kJ}}{\text{kg a.s.}} \\]
+                    <p>El término latente (≈ 253 kJ/kg) es más del doble que el sensible (≈ 96 kJ/kg), lo que confirma que el vapor de agua arrastrado en el aire de escape concentra la mayor parte de la energía que abandona el sistema.</p>
+
                     <p><strong>Conclusión de Ingeniería:</strong></p>
                     <p>El análisis confirma que la mayor ineficiencia energética en el secado por atomización es el <strong>calor latente y sensible que se pierde en el aire de salida</strong>. Para optimizar el proceso a nivel industrial, se recomienda evaluar sistemas de recuperación de calor o pre-concentrar el extracto de café (aumentar los sólidos iniciales) antes de la atomización, reduciendo así la carga de agua (W) a evaporar.</p>
                     <p class="mt-3 text-success"><em>Has demostrado una sólida capacidad de análisis y toma de decisiones basada en balances de materia y energía.</em></p>
@@ -627,6 +727,33 @@
     
     <!-- Custom JavaScript -->
     <script>
+        // ============================================================
+        // 1) MEJORA: Las opciones de cada pregunta se BARAJAN (mezcla
+        //    aleatoria tipo Fisher-Yates) al cargar la página, de modo
+        //    que la respuesta correcta ya no esté siempre en la misma
+        //    posición (antes solía caer en la 1.ª o 2.ª opción).
+        //    La corrección NO depende de la letra/posición, sino del
+        //    atributo data-correct="true" de la opción correcta.
+        // ============================================================
+        function shuffleOptions(questionName) {
+            const container = document.querySelector(`input[name="${questionName}"]`)?.closest('div.mb-4');
+            if (!container) return;
+            const options = Array.from(container.querySelectorAll('.quiz-option'));
+            // Fisher-Yates shuffle
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            // Re-insertar en el nuevo orden (dentro del mismo contenedor,
+            // justo antes del párrafo de la pregunta si existiera otro layout)
+            options.forEach(opt => container.appendChild(opt));
+        }
+
+        // Barajar las opciones de las 7 preguntas al cargar
+        for (let s = 1; s <= 7; s++) {
+            shuffleOptions(`q${s}_1`);
+        }
+
         // Highlight selected quiz option visually
         document.querySelectorAll('.quiz-option').forEach(option => {
             option.addEventListener('click', function() {
@@ -639,20 +766,25 @@
             });
         });
 
-        function checkStep(stepNum, correctAnswers) {
+        // ============================================================
+        // 2) Verificación basada en data-correct (independiente del
+        //    orden visible de las opciones barajadas).
+        // ============================================================
+        function checkStep(stepNum) {
             let allCorrect = true;
             let feedbackEl = document.getElementById(`feedback${stepNum}`);
             let checkBtn = document.getElementById(`checkBtn${stepNum}`);
             let nextBtn = document.getElementById(stepNum === 7 ? 'finishBtn' : `next${stepNum}`);
             let solutionBox = document.getElementById(`solution${stepNum}`);
-            
-            // Verify all answers for this step
-            for (const [key, value] of Object.entries(correctAnswers)) {
-                const selected = document.querySelector(`input[name="${key}"]:checked`);
-                if (!selected || selected.value !== value) {
-                    allCorrect = false;
-                    break;
-                }
+
+            // Verificar todas las opciones de este paso:
+            // debe existir una selección y esa selección debe ser la correcta
+            const radios = document.querySelectorAll(`input[name="q${stepNum}_1"]`);
+            const selected = document.querySelector(`input[name="q${stepNum}_1"]:checked`);
+            if (!selected) {
+                allCorrect = false;
+            } else {
+                allCorrect = selected.closest('.quiz-option').dataset.correct === 'true';
             }
 
             if (allCorrect) {
